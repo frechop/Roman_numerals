@@ -7,7 +7,7 @@ namespace Roman_numerals
         // Due to limitation 0 < x < 3999 Recursive approach is acceptable
         public static string ConvertToRoman(int number)
         {
-            if ((number < 0) || (number >3999)) throw new ArgumentOutOfRangeException("Inserted number is out of range");
+            if ((number < 0) || (number > 3999)) throw new ArgumentOutOfRangeException("Inserted number is out of range");
             if (number < 1) return string.Empty;
             if (number >= 1000) return "M" + ConvertToRoman(number - 1000);
             if (number >= 500) return "D" + ConvertToRoman(number - 500);
@@ -19,7 +19,7 @@ namespace Roman_numerals
             if (number >= 5) return "V" + ConvertToRoman(number - 5);
             if (number >= 4) return "IV" + ConvertToRoman(number - 4);
             if (number >= 1) return "I" + ConvertToRoman(number - 1);
-            throw new ArgumentException("Incorrect argument");
+            throw new ArgumentException("Incorrect input");
         }
     }
 
