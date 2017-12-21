@@ -1,6 +1,6 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Roman_numerals;
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Roman_Numerals;
 
 namespace Roman_Numerals_Tests
 {
@@ -15,6 +15,13 @@ namespace Roman_Numerals_Tests
 
             // Act & Assert
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => Roman.ConvertToRoman(negativeInput));
+        }
+
+        [TestMethod]
+        public void ConverToRoman_0_EmptyString()
+        {
+            // Act & Assert
+            Assert.AreEqual(string.Empty, Roman.ConvertToRoman(0));
         }
 
         [TestMethod]
