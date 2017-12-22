@@ -5,7 +5,7 @@ namespace Roman_Numerals
 {
     public static class Roman
     {
-        // Due to limitation 0 < x < 3999 Recursive approach is acceptable
+        // Due to limitation 0 < x < 3999 Recursive approach using String is acceptable
         public static string ConvertToRoman(int number)
         {
             if ((number < 0) || (number > 3999)) throw new ArgumentOutOfRangeException("Inserted number is out of range");
@@ -26,47 +26,38 @@ namespace Roman_Numerals
             throw new ArgumentException("Incorrect input");
         }
 
-        // String Length is limited to Int32 MaxValue
+        // Assumed that string Length is limited to Int32 MaxValue and numbers are within the range
         public static Tuple<string, int> ReplaceIntegersInText(string text)
         {
-            bool isNumberic = int.TryParse(text, out int number);
+            StringBuilder result = new StringBuilder();
+            int replacementCounter = new int();
 
-            if (isNumberic)
+            for (int i = 0; i < text.Length;)
             {
-                return new Tuple<string, int>(ConvertToRoman(number), 1);
-            }
-            else
-            {
-                StringBuilder result = new StringBuilder();
-                int replacementCounter = new int();
-
-                for (int i = 0; i < text.Length; i++)
+                if (char.IsDigit(text[i]))
                 {
-                    if (char.IsDigit(text[i]))
+                    string foundNumberAsText = string.Empty;
+
+                    do
                     {
-                        result.Append(" ");
-                        string foundNumberAsText = string.Empty;
-
-                        while (char.IsDigit(text[i]))
-                        {
-                            foundNumberAsText += text[i];
-                            i++;
-
-                            if (i >= text.Length) break;
-                        }
-
-                        int.TryParse(foundNumberAsText, out var foundNumber);
-                        result.Append(ConvertToRoman(foundNumber));
-                        replacementCounter++;
-                        continue;
+                        foundNumberAsText += text[i];
                     }
-                    else
-                    {
-                        result.Append(text[i]);
-                    }
+                    while (char.IsDigit(text[++i]));
+
+                    int.TryParse(foundNumberAsText, out var foundNumber);
+                    string RomanLiteral = ConvertToRoman(foundNumber);
+                    RomanLiteral = RomanLiteral.Remove(RomanLiteral.Length - 1);
+                    result.Append(RomanLiteral);
+                    replacementCounter++;
+                    continue;
                 }
-                return new Tuple<string, int>(result.ToString(), replacementCounter);
+                else
+                {
+                    result.Append(text[i]);
+                    i++;
+                }
             }
+            return new Tuple<string, int>(result.ToString(), replacementCounter);
         }
     }
 }
