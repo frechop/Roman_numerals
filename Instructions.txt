@@ -1,0 +1,12 @@
+Instructions to test the solution.
+
+1 Option.
+Open VS, Build, Run the Tests.
+
+2 Option.
+Open .NET CLI inside the folder.
+Type the following Commands.
+
+dotnet restore
+
+dotnet test
